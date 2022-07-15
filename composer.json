@@ -19,7 +19,8 @@
         "mercadopago/dx-php": "^2.4",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-analytics": "^3.11",
-        "spatie/laravel-sitemap": "^5.9"
+        "spatie/laravel-sitemap": "^5.9",
+        "ext-imagick": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
