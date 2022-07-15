@@ -14,6 +14,7 @@ use App\Models\{
     Embarcacao,
     Passeio,
     Roteiro,
+   // Parceiro,
     User,
     Pedido,
     Post
@@ -31,24 +32,53 @@ class AdminController extends Controller
         $postsArtigos = Post::where('tipo', 'artigo')->count();
         $postsNoticias = Post::where('tipo', 'noticia')->count();
         $postsPaginas = Post::where('tipo', 'pagina')->count();
-        $artigosTop = Post::where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-                ->limit(4)->postson()->get()->sortByDesc('views');
-        $totalViewsArtigos = Post::selectRaw('SUM(views) AS VIEWS')
+        $artigosTop = Post::orderBy('views', 'DESC')
+                ->where('tipo', 'artigo')
+                ->limit(6)
+                ->postson()   
+                ->get();
+        $totalViewsArtigos = Post::orderBy('views', 'DESC')
+                ->where('tipo', 'artigo')
                 ->postson()
-                ->where( DB::raw('YEAR(created_at)'), '=', date('Y') )
-                ->first();
+                ->limit(6)
+                ->get()
+                ->sum('views');
+        $paginasTop = Post::orderBy('views', 'DESC')
+                ->where('tipo', 'pagina')
+                ->limit(6)
+                ->postson()   
+                ->get();
+        $totalViewsPaginas = Post::orderBy('views', 'DESC')
+                ->where('tipo', 'pagina')
+                ->postson()
+                ->limit(6)
+                ->get()
+                ->sum('views');
 
+        //Parceiros
+        // $parceirosAvailable = Parceiro::available()->count();
+        // $parceirosUnavailable = Parceiro::unavailable()->count();
+        // $parceirosTotal = Parceiro::all()->count();
+        //Parceiros Mais
+        //$parceirosTop = Parceiro::orderBy('views', 'DESC')
+        //        ->limit(6)->available()->get();
+        //$totalviewsparceiros = Parceiro::orderBy('views', 'DESC')
+        //        ->available()
+        //        ->limit(6)
+        //        ->get()
+        //        ->sum('views');
         //Roteiros
         $roteirosAvailable = Roteiro::available()->count();
         $roteirosUnavailable = Roteiro::unavailable()->count();
         $roteirosTotal = Roteiro::all()->count();
         //Roteiros Mais
-        $roteirosTop = Roteiro::where(DB::raw('YEAR(created_at)'), '=', date('Y'))
-                ->limit(4)->available()->get()->sortByDesc('views');
-        $totalviewsroteiros = Roteiro::selectRaw('SUM(views) AS VIEWS')
+        $roteirosTop = Roteiro::orderBy('views', 'DESC')
+                ->limit(6)->available()->get();
+        $totalviewsroteiros = Roteiro::orderBy('views', 'DESC')
                 ->available()
-                ->where( DB::raw('YEAR(created_at)'), '=', date('Y') )
-                ->first();        
+                ->limit(6)
+                ->get()
+                ->sum('views');  
         //Passeios
         $passeiosAvailable = Passeio::available()->count();
         $passeiosUnavailable = Passeio::unavailable()->count();
@@ -85,13 +115,16 @@ class AdminController extends Controller
             'postsNoticias' => $postsNoticias,
             'postsPaginas' => $postsPaginas,
             'artigosTop' => $artigosTop,
-            'artigostotalviews' => $totalViewsArtigos->VIEWS,
+            'artigostotalviews' => $totalViewsArtigos,
             //Roteiros
             'roteirosAvailable' => $roteirosAvailable,
             'roteirosUnavailable' => $roteirosUnavailable,
             'roteirosTotal' => $roteirosTotal,            
             'roteirosTop' => $roteirosTop,
             'totalviewsroteiros' => $totalviewsroteiros,
+            //Parceiros
+            //'parceirosTop' => $parceirosTop,
+            //'totalviewsparceiros' => $totalviewsparceiros,
             //Passeios
             'passeiosAvailable' => $passeiosAvailable,
             'passeiosUnavailable' => $passeiosUnavailable,
