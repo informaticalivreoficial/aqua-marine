@@ -79,7 +79,7 @@
                     <div>
                         <div class="reveal-inline-block">
                             @if ($configuracoes->whatsapp)
-                                <a href="{{getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
+                                <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
                                     <span class="unit-left">
                                         <span style="background-color: #34af23;color:#fff;" class="icon icon-xxs icon-circle mdi mdi-whatsapp"></span>
                                     </span>
@@ -233,7 +233,7 @@
     </footer>
 
     <div class="whatsapp-footer">
-        <a href="{{getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" title="WhatsApp">
+        <a href="{{\App\Helpers\WhatsApp::getNumZapgetNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" title="WhatsApp">
             <img src="{{url(asset('frontend/assets/images/zap-topo.png'))}}" alt="{{url(asset('frontend/assets/images/zap-topo.png'))}}" title="WhatsApp" />
         </a>
     </div>

@@ -155,7 +155,7 @@
                         </div>
                         <div class="unit-body text-gray-darker">
                           <p>
-                            <a href="{{getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="reveal-block reveal-xs-inline-block text-gray-darker">{{$configuracoes->whatsapp}}</a>                        
+                            <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="reveal-block reveal-xs-inline-block text-gray-darker">{{$configuracoes->whatsapp}}</a>                        
                           </p>
                         </div>
                       </div>
