@@ -98,8 +98,8 @@ class Renato
     * somente os números
     * @return BOOLEAN = retorna se o cpf é válido ou não True ou False!
     */
-    public static function validaCPF($cpf) {
-
+    public static function validaCPF($cpf) 
+    {
         if(empty($cpf)){
             return null;
         }
@@ -128,6 +128,22 @@ class Renato
             }
         }
         return true;
+    }
+
+    /**
+    * <b>LINK GOOGLE MAPS:</b> quebra o iframe e retorna somente o link 
+    * do mapa
+    * @return BOOLEAN = retorna se o cpf é válido ou não True ou False!
+    */
+    public static function getLinkGoogleMaps($link)
+    {
+        if(empty($link)){
+            return null;
+        }
+        $src = str_replace('<iframe src="', '', $link);
+        $src1 = str_replace('" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>', '', $src);
+        
+        return $src1;
     }
 
 }

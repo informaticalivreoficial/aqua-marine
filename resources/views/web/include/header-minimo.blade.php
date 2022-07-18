@@ -9,7 +9,7 @@
                 <address class="contact-info text-left">
                 @if ($configuracoes->whatsapp)
                     <div class="reveal-inline-block">
-                        <a href="{{getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
+                        <a href="{{\App\Helpers\WhatsApp::getNumZapgetNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
                             <span class="unit-left">
                                 <span style="background-color: #34af23;color:#fff;" class="icon icon-xxs icon-circle mdi mdi-whatsapp"></span>
                             </span>
@@ -22,7 +22,7 @@
                     
 				@if($configuracoes->rua)	
                 <div class="reveal-inline-block">
-                    <a target="_blank" title="Localização" href="{{getLinkGoogleMaps($configuracoes->mapa_google)}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
+                    <a target="_blank" title="Localização" href="{{\App\Helpers\Renato::getLinkGoogleMaps($configuracoes->mapa_google)}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
                         <span class="unit-left">
                             <span class="icon icon-xxs icon-primary icon-primary-filled icon-circle mdi mdi-map-marker"></span>
                         </span>						
