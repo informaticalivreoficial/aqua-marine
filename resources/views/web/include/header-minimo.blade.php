@@ -9,7 +9,7 @@
                 <address class="contact-info text-left">
                 @if ($configuracoes->whatsapp)
                     <div class="reveal-inline-block">
-                        <a href="{{\App\Helpers\WhatsApp::getNumZapgetNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
+                        <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
                             <span class="unit-left">
                                 <span style="background-color: #34af23;color:#fff;" class="icon icon-xxs icon-circle mdi mdi-whatsapp"></span>
                             </span>
