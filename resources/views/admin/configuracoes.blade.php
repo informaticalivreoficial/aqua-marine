@@ -549,11 +549,10 @@ $config1 = [
             <div class="modal-body text-center">  
                 <p>Este QrCode direciona para: {{$config->dominio}}</p>
                 @php 
-                    $qrcode = 'data:image/png;base64,'.base64_encode(QrCode::format('png')
-                            ->merge($config->getlogomarca(), .22, true)
-                            ->errorCorrection('H')
-                            ->size(300)
-                            ->generate($config->dominio));
+                    $qrcode = QRCode::url($config->dominio)
+                            ->setSize(8)
+                            ->setMargin(2)
+                            ->svg();
                 @endphp             
                 <img src="{{$qrcode}}">
             </div>
