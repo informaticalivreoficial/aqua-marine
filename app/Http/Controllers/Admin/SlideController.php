@@ -72,8 +72,8 @@ class SlideController extends Controller
         }
 
         if(!empty($request->file('imagem'))){
-            Storage::delete($slide->imagem);
-            Cropper::flush($slide->imagem);
+            Storage::delete(env('AWS_PASTA') . $slide->imagem);
+            //Cropper::flush($slide->imagem);
             $slide->imagem = '';
         }
 
@@ -105,7 +105,7 @@ class SlideController extends Controller
     public function delete(Request $request)
     {
         $slide = Slide::where('id', $request->id)->first();
-        $nome = getPrimeiroNome(Auth::user()->name);
+        $nome = \App\Helpers\Renato::getPrimeiroNome(Auth::user()->name);
         if(!empty($slide)){
             $json = "<b>$nome</b> você tem certeza que deseja excluir este Slide?";
             return response()->json(['error' => $json,'id' => $slide->id]);
@@ -119,8 +119,8 @@ class SlideController extends Controller
         $slide = Slide::where('id', $request->slide_id)->first();  
         $slideR = $slide->titulo;
         if(!empty($slide)){
-            Storage::delete($slide->imagem);
-            Cropper::flush($slide->imagem);
+            Storage::delete(env('AWS_PASTA') . $slide->imagem);
+            //Cropper::flush($slide->imagem);
             $slide->delete();
         }
         return redirect()->route('slides.index')->with(['color' => 'success', 'message' => 'O slide '.$slideR.' foi removido com sucesso!']);

@@ -37,13 +37,4 @@ class SitemapController extends Controller
         
         return response()->json(['success' => true]);
     }
-
-    // public function gerarfeed(Request $request)
-    // {
-    //     $configupdate = Configuracoes::where('id', $request->id)->first();
-    //     $configupdate->rss_data = date('Y-m-d');
-    //     $configupdate->save();
-
-    //     return response()->json(['success' => true]);
-    // }
 }

@@ -55,18 +55,7 @@ class AdminController extends Controller
                 ->get()
                 ->sum('views');
 
-        //Parceiros
-        // $parceirosAvailable = Parceiro::available()->count();
-        // $parceirosUnavailable = Parceiro::unavailable()->count();
-        // $parceirosTotal = Parceiro::all()->count();
-        //Parceiros Mais
-        //$parceirosTop = Parceiro::orderBy('views', 'DESC')
-        //        ->limit(6)->available()->get();
-        //$totalviewsparceiros = Parceiro::orderBy('views', 'DESC')
-        //        ->available()
-        //        ->limit(6)
-        //        ->get()
-        //        ->sum('views');
+        
         //Roteiros
         $roteirosAvailable = Roteiro::available()->count();
         $roteirosUnavailable = Roteiro::unavailable()->count();

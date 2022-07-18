@@ -15,6 +15,7 @@ use App\Models\Roteiro;
 use App\Models\RoteiroGb;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use LaravelQRCode\Facades\QRCode;
 
 class RoteiroController extends Controller
 {
@@ -150,8 +151,8 @@ class RoteiroController extends Controller
     {
         $imageDelete = RoteiroGb::where('id', $request->image)->first();
 
-        Storage::delete($imageDelete->path);
-        Cropper::flush($imageDelete->path);
+        Storage::delete(env('AWS_PASTA') . $imageDelete->path);
+        //Cropper::flush($imageDelete->path);
         $imageDelete->delete();
 
         $json = [
@@ -172,7 +173,7 @@ class RoteiroController extends Controller
     {
         $roteirodelete = Roteiro::where('id', $request->id)->first();
         $roteiroGb = RoteiroGb::where('roteiro_id', $roteirodelete->id)->first();
-        $nome = getPrimeiroNome(Auth::user()->name);
+        $nome = \App\Helpers\Renato::getPrimeiroNome(Auth::user()->name);
 
         if(!empty($roteirodelete)){
             if(!empty($roteiroGb)){
@@ -195,10 +196,10 @@ class RoteiroController extends Controller
 
         if(!empty($roteirodelete)){
             if(!empty($imageDelete)){
-                Storage::delete($imageDelete->path);
-                Cropper::flush($imageDelete->path);
+                Storage::delete(env('AWS_PASTA') . $imageDelete->path);
+                //Cropper::flush($imageDelete->path);
                 $imageDelete->delete();
-                Storage::deleteDirectory('roteiros/'.$roteirodelete->id);
+                Storage::deleteDirectory(env('AWS_PASTA') . 'roteiros/'.$roteirodelete->id);
                 $roteirodelete->delete();
             }
             $roteirodelete->delete();
@@ -214,11 +215,10 @@ class RoteiroController extends Controller
         $Configuracoes = Configuracoes::where('id', '1')->first();
         $roteiroQrCode = Roteiro::where('slug', $request->slug)->first();
         if(!empty($roteiroQrCode)){ 
-            $qrcode = 'data:image/png;base64,'.base64_encode(\QrCode::format('png')
-                            ->merge($Configuracoes->getlogomarca(), .22, true)
-                            ->errorCorrection('H')
-                            ->size(300)
-                            ->generate(route('web.roteiro',['slug' => $roteiroQrCode->slug])));
+            $qrcode = QRCode::url(route('web.roteiro',['slug' => $roteiroQrCode->slug]))
+                    ->setSize(8)
+                    ->setMargin(2)
+                    ->svg();
             return response()->json(['qrcode' => $qrcode]);
         }else{
             return response()->json(['error' => 'Erro ao gerar QrCode!']);

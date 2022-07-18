@@ -14,6 +14,7 @@ use App\Support\Cropper;
 use App\Models\Embarcacao;
 use App\Models\EmbarcacaoGb;
 use Illuminate\Http\Request;
+use LaravelQRCode\Facades\QRCode;
 
 class EmbarcacaoController extends Controller
 {    
@@ -124,8 +125,8 @@ class EmbarcacaoController extends Controller
     {
         $imageDelete = EmbarcacaoGb::where('id', $request->image)->first();
 
-        Storage::delete($imageDelete->path);
-        Cropper::flush($imageDelete->path);
+        Storage::delete(env('AWS_PASTA') . $imageDelete->path);
+        //Cropper::flush($imageDelete->path);
         $imageDelete->delete();
 
         $json = [
@@ -146,7 +147,7 @@ class EmbarcacaoController extends Controller
     {
         $embarcacaodelete = Embarcacao::where('id', $request->id)->first();
         $embarcacaoGb = EmbarcacaoGb::where('embarcacao_id', $embarcacaodelete->id)->first();
-        $nome = getPrimeiroNome(Auth::user()->name);
+        $nome = \App\Helpers\Renato::getPrimeiroNome(Auth::user()->name);
 
         if(!empty($embarcacaodelete)){
             if(!empty($embarcacaoGb)){
@@ -169,10 +170,10 @@ class EmbarcacaoController extends Controller
 
         if(!empty($embarcacaodelete)){
             if(!empty($imageDelete)){
-                Storage::delete($imageDelete->path);
-                Cropper::flush($imageDelete->path);
+                Storage::delete(env('AWS_PASTA') . $imageDelete->path);
+                //Cropper::flush($imageDelete->path);
                 $imageDelete->delete();
-                Storage::deleteDirectory('embarcacoes/'.$embarcacaodelete->id);
+                Storage::deleteDirectory(env('AWS_PASTA') . 'embarcacoes/'.$embarcacaodelete->id);
                 $embarcacaodelete->delete();
             }
             $embarcacaodelete->delete();
@@ -188,11 +189,10 @@ class EmbarcacaoController extends Controller
         $Configuracoes = Configuracoes::where('id', '1')->first();
         $embarcacaoQrCode = Embarcacao::where('slug', $request->slug)->first();
         if(!empty($embarcacaoQrCode)){
-            $qrcode = 'data:image/png;base64,'.base64_encode(\QrCode::format('png')
-                            ->merge($Configuracoes->getlogomarca(), .22, true)
-                            ->errorCorrection('H')
-                            ->size(300)
-                            ->generate(route('web.embarcacao',['slug' => $embarcacaoQrCode->slug])));
+            $qrcode = QRCode::url(route('web.embarcacao',['slug' => $embarcacaoQrCode->slug]))
+                        ->setSize(8)
+                        ->setMargin(2)
+                        ->svg();
             return response()->json(['qrcode' => $qrcode]);
         }else{
             return response()->json(['error' => 'Erro ao gerar QrCode!']);
