@@ -233,7 +233,7 @@
     </footer>
 
     <div class="whatsapp-footer">
-        <a href="{{\App\Helpers\WhatsApp::getNumZapgetNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" title="WhatsApp">
+        <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->whatsapp ,'Atendimento Aqua Marine Turismo Náutico')}}" title="WhatsApp">
             <img src="{{url(asset('frontend/assets/images/zap-topo.png'))}}" alt="{{url(asset('frontend/assets/images/zap-topo.png'))}}" title="WhatsApp" />
         </a>
     </div>
