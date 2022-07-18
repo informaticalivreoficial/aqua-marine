@@ -25,15 +25,15 @@ class SitemapController extends Controller
         $configupdate->save();
 
         Sitemap::create()->add(Url::create('/atendimento')
-            ->setLastModificationDate(Carbon::yesterday())
-            ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            ->setPriority(0.1))
-            ->add('/')
-            //->add('/destaque')
-            ->add('/blog/artigos')
-            ->add('/roteiros')
-            ->add('/embarcacoes')
-            ->writeToFile('sitemap.xml'); 
+                        ->setLastModificationDate(Carbon::yesterday())
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                        ->setPriority(0.1))
+                        ->add('/')
+                        //->add('/destaque')
+                        ->add('/blog/artigos')
+                        ->add('/roteiros')
+                        ->add('/embarcacoes')
+                        ->writeToFile('sitemap.xml'); 
         
         return response()->json(['success' => true]);
     }
