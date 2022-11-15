@@ -35,6 +35,7 @@ class Compra extends Mailable
     {
         return $this->replyTo($this->cliente['email'], $this->cliente['name'])
             ->to($this->data['siteemail'], $this->data['sitename'])
+            ->cc(env('DESENVOLVEDOR_EMAIL'))
             ->from($this->data['siteemail'], $this->data['sitename'])
             ->subject('⚓️ Venda pelo Site: ' . $this->data['data_passeio'])
             ->markdown('emails.compra', [

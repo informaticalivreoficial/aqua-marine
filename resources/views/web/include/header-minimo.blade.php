@@ -19,8 +19,22 @@
                         </a>
                     </div>
                 @endif
+                @if ($configuracoes->telefone3)
+                    <div class="reveal-inline-block">
+                        <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->telefone3 ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
+                            <span class="unit-left">
+                                <span style="background-color: #34af23;color:#fff;" class="icon icon-xxs icon-circle mdi mdi-whatsapp"></span>
+                            </span>
+                            <span class="unit-body">
+                                <span class="text-gray-darker">
+                                    {{$configuracoes->telefone3}}                                    
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                @endif
                     
-				@if($configuracoes->rua)	
+				{{--@if($configuracoes->rua)	
                 <div class="reveal-inline-block">
                     <a target="_blank" title="Localização" href="{{\App\Helpers\Renato::getLinkGoogleMaps($configuracoes->mapa_google)}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
                         <span class="unit-left">
@@ -38,7 +52,7 @@
                         </span>						
                     </a>
                 </div>
-				@endif
+				@endif--}}
                 <!--
                 <div class="reveal-inline-block">
                     <a style="background-color: #34af23;color:#fff;padding:8px;" href="">Minha Reserva</a>               
