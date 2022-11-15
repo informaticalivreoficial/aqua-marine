@@ -352,13 +352,13 @@ $config1 = [
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-4"> 
                                     <div class="form-group">
-                                        <label class="labelforms"><b>Telefone 3:</b></label>
-                                        <input type="text" class="form-control text-muted" placeholder="Telefone 3 com DDD" name="telefone3" value="{{old('telefone3') ?? $config->telefone3}}">
+                                        <label class="labelforms"><b>WhatsApp 2:</b></label>
+                                        <input type="text" class="form-control text-muted" placeholder="Número do Celuler com DDD" name="telefone3" value="{{old('telefone3') ?? $config->telefone3}}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-4"> 
                                     <div class="form-group">
-                                        <label class="labelforms"><b>WhatsApp:</b></label>
+                                        <label class="labelforms"><b>WhatsApp 1:</b></label>
                                         <input type="text" class="form-control text-muted whatsappmask" placeholder="Número do Celuler com DDD" name="whatsapp" value="{{old('whatsapp') ?? $config->whatsapp}}">
                                     </div>
                                 </div>

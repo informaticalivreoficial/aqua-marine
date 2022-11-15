@@ -13,7 +13,14 @@
                                 <span style="background-color: #34af23;color:#fff;" class="icon icon-xxs icon-circle mdi mdi-whatsapp"></span>
                             </span>
                             <span class="unit-body">
-                                <span class="text-gray-darker">{{$configuracoes->whatsapp}}</span>
+                                <span class="text-gray-darker">
+                                    {{$configuracoes->whatsapp}}
+                                    @if ($configuracoes->telefone3)
+                                    <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->telefone3 ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
+                                         - {{$configuracoes->telefone3}}
+                                    </a>
+                                    @endif
+                                </span>
                             </span>
                         </a>
                     </div>
