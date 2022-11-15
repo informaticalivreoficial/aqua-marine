@@ -86,17 +86,17 @@
                                     <span class="unit-body">
                                         <span class="text-silver">{{$configuracoes->whatsapp}}</span>
                                     </span>
-                                </a>
-                                @if ($configuracoes->telefone3)
+                                </a>                                
+                            @endif
+                            @if ($configuracoes->telefone3)
+                                <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->telefone3 ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
                                     <span class="unit-left">
                                         <span style="background-color: #34af23;color:#fff;" class="icon icon-xxs icon-circle mdi mdi-whatsapp"></span>
                                     </span>
-                                    <a href="{{\App\Helpers\WhatsApp::getNumZap($configuracoes->telefone3 ,'Atendimento Aqua Marine Turismo Náutico')}}" class="unit unit-middle unit-horizontal unit-spacing-xs">
-                                        <span class="unit-body">
-                                            <span class="text-silver">{{$configuracoes->telefone3}}</span>
-                                        </span>
-                                    </a>
-                                @endif
+                                    <span class="unit-body">
+                                        <span class="text-silver">{{$configuracoes->telefone3}}</span>
+                                    </span>
+                                </a>                                
                             @endif
                             @if ($configuracoes->telefone1)
                                 <a href="callto:{{$configuracoes->telefone1}}" class="unit unit-middle unit-horizontal unit-spacing-xs ">
