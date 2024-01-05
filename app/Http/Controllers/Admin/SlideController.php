@@ -41,7 +41,7 @@ class SlideController extends Controller
         }
 
         if(!empty($request->file('imagem'))){
-            $slideCreate->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'slides', Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
+            $slideCreate->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'slides/'. auth()->user()->tenant->uuid, Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
             $slideCreate->save();
         }
 
@@ -71,8 +71,7 @@ class SlideController extends Controller
         }
 
         if(!empty($request->file('imagem'))){
-            Storage::delete(env('AWS_PASTA') . $slide->imagem);
-            //Cropper::flush($slide->imagem);
+            Storage::delete($slide->imagem);
             $slide->imagem = '';
         }
 
@@ -80,7 +79,7 @@ class SlideController extends Controller
         $slide->setSlug();
 
         if(!empty($request->file('imagem'))){
-            $slide->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'slides', Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
+            $slide->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'slides/'. auth()->user()->tenant->uuid, Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
         }
 
         if(!$slide->save()){
