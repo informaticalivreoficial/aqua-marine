@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Slide;
 use App\Http\Requests\Admin\Slide as SlideRequest;
-use App\Support\Cropper;
 
 class SlideController extends Controller
 {
@@ -42,7 +41,7 @@ class SlideController extends Controller
         }
 
         if(!empty($request->file('imagem'))){
-            $slideCreate->imagem = $request->file('imagem')->storeAs('slides', Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
+            $slideCreate->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'slides', Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
             $slideCreate->save();
         }
 
@@ -81,7 +80,7 @@ class SlideController extends Controller
         $slide->setSlug();
 
         if(!empty($request->file('imagem'))){
-            $slide->imagem = $request->file('imagem')->storeAs('slides', Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
+            $slide->imagem = $request->file('imagem')->storeAs(env('AWS_PASTA') . 'slides', Str::slug($request->titulo)  . '-' . str_replace('.', '', microtime(true)) . '.' . $request->file('imagem')->extension());
         }
 
         if(!$slide->save()){
@@ -119,8 +118,7 @@ class SlideController extends Controller
         $slide = Slide::where('id', $request->slide_id)->first();  
         $slideR = $slide->titulo;
         if(!empty($slide)){
-            Storage::delete(env('AWS_PASTA') . $slide->imagem);
-            //Cropper::flush($slide->imagem);
+            Storage::delete($slide->imagem);
             $slide->delete();
         }
         return redirect()->route('slides.index')->with(['color' => 'success', 'message' => 'O slide '.$slideR.' foi removido com sucesso!']);
