@@ -135,6 +135,7 @@
 					<li class=""><a href="{{route('web.roteiros')}}">Roteiros</a></li>
 					<li class=""><a href="{{route('web.blog.artigos')}}">Dicas</a></li>
 					<li class=""><a href="{{route('web.atendimento')}}">Atendimento</a></li>
+                    <li class=""><a target="_blank" href="https://greenhavenilhaanchieta.com.br/ingressos/">Ingressos</a></li>
 				</ul>
               </div>
             </div>
