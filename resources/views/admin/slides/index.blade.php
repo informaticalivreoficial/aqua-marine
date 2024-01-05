@@ -50,7 +50,7 @@
                         <td class="text-center">
                             @php
                                 if(!empty($slide->imagem) && \Illuminate\Support\Facades\Storage::exists($slide->imagem)){
-                                    $cover = \Illuminate\Support\Facades\Storage::url($slide->imagem);
+                                    $cover = url('storage/'.$slide->imagem);
                                 } else {
                                     $cover = url(asset('backend/assets/images/image.jpg'));
                                 }
