@@ -48,20 +48,20 @@ class Slide extends Model
 
     public function getimagem()
     {
-        //$image = $this->imagem;        
-        if(empty($this->imagem) || !Storage::disk()->exists($this->imagem)) {
+        $image = $this->imagem;        
+        if(empty($this->imagem) || !File::exists('../public/storage/' . $image)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        return Storage::url($this->imagem);
+        return Storage::url(Cropper::thumb($this->imagem, 1920, 696));
     }
 
     public function getUrlImagemAttribute()
     {
         if (!empty($this->imagem)) {
-            return Storage::url($this->imagem);
+            return Storage::url(Cropper::thumb($this->imagem, 500, 500));
         }
         return '';
-    }    
+    }     
 
     public function setExpiraAttribute($value)
     {
