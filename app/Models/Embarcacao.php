@@ -71,7 +71,7 @@ class Embarcacao extends Model
             $cover = $images->first(['path']);
         }
 
-        if(empty($cover['path']) || !Storage::disk()->exists(env('AWS_PASTA') . $cover['path'])) {
+        if(empty($cover['path']) || !Storage::disk()->exists($cover['path'])) {
             return url(asset('backend/assets/images/image.jpg'));
         }
 
@@ -89,7 +89,7 @@ class Embarcacao extends Model
             $cover = $images->first(['path']);
         }
 
-        if(empty($cover['path']) || !Storage::disk()->exists(env('AWS_PASTA') . $cover['path'])) {
+        if(empty($cover['path']) || !Storage::disk()->exists($cover['path'])) {
             return url(asset('backend/assets/images/image.jpg'));
         }
 
