@@ -257,6 +257,7 @@
 
 @section('js')
 <script src="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.min.js'))}}"></script>
+{{--
     <script>  
     $(function (){
 
@@ -470,4 +471,5 @@
             });
     });    
     </script>
+    --}}
 @stop
