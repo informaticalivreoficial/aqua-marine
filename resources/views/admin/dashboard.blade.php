@@ -257,7 +257,7 @@
 
 @section('js')
 <script src="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.min.js'))}}"></script>
-{{--
+<script src="{{url(asset('backend/plugins/ekko-lightbox/ekko-lightbox.min.js'))}}"></script>
     <script>  
     $(function (){
 
@@ -269,109 +269,112 @@
         }); 
 
         var areaChartData = {
-            labels  : [
-            @foreach($analyticsData->rows as $dataMonth)                
-                'Mês/{{substr($dataMonth[0], -2)}}',                                 
-            @endforeach
-            ],
-            datasets: [
-                {
-                label               : 'Visitas Únicas',
-                backgroundColor     : 'rgba(60,141,188,0.9)',
-                borderColor         : 'rgba(60,141,188,0.8)',
-                pointRadius          : false,
-                pointColor          : '#3b8bba',
-                pointStrokeColor    : 'rgba(60,141,188,1)',
-                pointHighlightFill  : '#fff',
-                pointHighlightStroke: 'rgba(60,141,188,1)',
-                data                : [
-                                    @foreach($analyticsData->rows as $dataMonth)                
-                                        '{{$dataMonth[2]}}',                                 
-                                    @endforeach
-                                    ]
-                },
-                {
-                label               : 'Visitas',
-                backgroundColor     : 'rgba(210, 214, 222, 1)',
-                borderColor         : 'rgba(210, 214, 222, 1)',
-                pointRadius         : false,
-                pointColor          : 'rgba(210, 214, 222, 1)',
-                pointStrokeColor    : '#c1c7d1',
-                pointHighlightFill  : '#fff',
-                pointHighlightStroke: 'rgba(220,220,220,1)',
-                data                : [
-                                    @foreach($analyticsData->rows as $dataMonth)                
-                                        '{{$dataMonth[1]}}',                                 
-                                    @endforeach
-                                    ]
-                },
-            ]
-        }
+                 labels  : [
+                     @foreach($analyticsData as $analitics)                
+                         'Mês/{{$analitics['month']}}',                                 
+                     @endforeach
+                 ],
+                 datasets: [
+                     {
+                     label               : 'Visitas Únicas',
+                     backgroundColor     : 'rgba(60,141,188,0.9)',
+                     borderColor         : 'rgba(60,141,188,0.8)',
+                     pointRadius          : false,
+                     pointColor          : '#3b8bba',
+                     pointStrokeColor    : 'rgba(60,141,188,1)',
+                     pointHighlightFill  : '#fff',
+                     pointHighlightStroke: 'rgba(60,141,188,1)',
+                     data                : [
+                         @foreach($analyticsData as $analitics)                
+                             '{{$analitics['totalUsers']}}',                                 
+                         @endforeach
+                                         ]
+                     },
+                     {
+                     label               : 'Visitas',
+                     backgroundColor     : 'rgba(210, 214, 222, 1)',
+                     borderColor         : 'rgba(210, 214, 222, 1)',
+                     pointRadius         : false,
+                     pointColor          : 'rgba(210, 214, 222, 1)',
+                     pointStrokeColor    : '#c1c7d1',
+                     pointHighlightFill  : '#fff',
+                     pointHighlightStroke: 'rgba(220,220,220,1)',
+                     data                : [
+                         @foreach($analyticsData as $analitics)                
+                             '{{$analitics['sessions']}}',                                 
+                         @endforeach
+                                         ]
+                     },
+                 ]
+             }
+         
+         
+ 
+         //-------------
+         //- BAR CHART -
+         //-------------
+         var barChartCanvas = $('#barChart').get(0).getContext('2d')
+         var barChartData = jQuery.extend(true, {}, areaChartData)
+         var temp0 = areaChartData.datasets[0]
+         var temp1 = areaChartData.datasets[1]
+         barChartData.datasets[0] = temp1
+         barChartData.datasets[1] = temp0
+ 
+         var barChartOptions = {
+         responsive              : true,
+         maintainAspectRatio     : false,
+         datasetFill             : false
+         }
+ 
+         var barChart = new Chart(barChartCanvas, {
+         type: 'bar', 
+         data: barChartData,
+         options: barChartOptions
+         });
+ 
+         function dynamicColors() {
+             var r = Math.floor(Math.random() * 255);
+             var g = Math.floor(Math.random() * 255);
+             var b = Math.floor(Math.random() * 255);
+             return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+         }
 
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas = $('#barChart').get(0).getContext('2d')
-        var barChartData = jQuery.extend(true, {}, areaChartData)
-        var temp0 = areaChartData.datasets[0]
-        var temp1 = areaChartData.datasets[1]
-        barChartData.datasets[0] = temp1
-        barChartData.datasets[1] = temp0
 
-        var barChartOptions = {
-        responsive              : true,
-        maintainAspectRatio     : false,
-        datasetFill             : false
-        }
-
-        var barChart = new Chart(barChartCanvas, {
-        type: 'bar', 
-        data: barChartData,
-        options: barChartOptions
-        });
-
-        function dynamicColors() {
-            var r = Math.floor(Math.random() * 255);
-            var g = Math.floor(Math.random() * 255);
-            var b = Math.floor(Math.random() * 255);
-            return "rgba(" + r + "," + g + "," + b + ", 0.5)";
-        }
-
-        //-------------
+         //-------------
         //- DONUT CHART -
         //-------------
         // Get context with jQuery - using jQuery's .get() method.
         var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
         var donutData        = {
           labels: [
-              @if(!empty($top_browser))
-                @foreach($top_browser as $browser)
-                  '{{$browser['browser']}}',
-                @endforeach
-              @else
-                'Chrome', 
-                'IE',
-                'FireFox', 
-                'Safari', 
-                'Opera', 
-                'Navigator',
-              @endif               
+            @if(!empty($top_browser))
+                 @foreach($top_browser as $browser)
+                   '{{$browser['browser']}}',
+                 @endforeach
+               @else
+                 'Chrome', 
+                 'IE',
+                 'FireFox', 
+                 'Safari', 
+                 'Opera', 
+                 'Navigator',
+               @endif                 
           ],
           datasets: [
             {
               data: [
                 @if(!empty($top_browser))
-                  @foreach($top_browser as $key => $browser)
-                    {{$browser['sessions']}},
-                  @endforeach
-                @else
-                  700,500,400,600,300,100
-                @endif                
+                   @foreach($top_browser as $key => $browser)
+                     {{$browser['screenPageViews']}},
+                   @endforeach
+                 @else
+                   700,500,400,600,300,100
+                 @endif                 
                 ],
               backgroundColor : [
                 @foreach($top_browser as $key => $browser)
-                  dynamicColors(),
-                @endforeach
+                   dynamicColors(),
+                 @endforeach
                 ],
             }
           ]
@@ -389,87 +392,9 @@
           options: donutOptions      
         });
 
-
-
-
-        var donutChartCanvasUsers = $('#donutChartusers').get(0).getContext('2d');
-        var donutDatausers        = {
-            labels: [ 
-                'Clientes Inativos', 
-                'Clientes Ativos',
-                'Time'             
-            ],
-            datasets: [
-                {
-                data: [{{ $usersUnavailable }},{{ $usersAvailable }}, {{ $time }}],
-                    backgroundColor : ['#4BC0C0', '#36A2EB', '#FF6384'],
-                }
-            ]
-            }
-            var donutOptions     = {
-            maintainAspectRatio : false,
-            responsive : true,
-            }
-
-            var donutChart = new Chart(donutChartCanvasUsers, {
-            type: 'doughnut',
-            data: donutDatausers,
-            options: donutOptions      
-            });
+        
     }); 
 
-    $(function (){
-        var donutChartCanvasPosts = $('#donutChartposts').get(0).getContext('2d');
-        var donutDataposts        = {
-            labels: [ 
-                'Artigos', 
-                'Notícias',
-                'Páginas'             
-            ],
-            datasets: [
-                {
-                data: [{{ $postsArtigos }},{{ $postsNoticias }}, {{ $postsPaginas }}],
-                    backgroundColor : ['#018577', '#419B45', '#BAC431'],
-                }
-            ]
-            }
-            var donutOptions     = {
-            maintainAspectRatio : false,
-            responsive : true,
-            }
-
-            var donutChart = new Chart(donutChartCanvasPosts, {
-            type: 'doughnut',
-            data: donutDataposts,
-            options: donutOptions      
-            });
-    });    
-    $(function (){
-        var donutChartCanvasPedidos = $('#donutChartpedidos').get(0).getContext('2d');
-        var donutDatapedidos        = {
-            labels: [ 
-                'Aprovados', 
-                'Processando',
-                'Cancelado'             
-            ],
-            datasets: [
-                {
-                data: [{{ $pedidosApproved }},{{ $pedidosInprocess }}, {{ $pedidosRejected }}],
-                    backgroundColor : ['#97C490', '#EBCF7F', '#E98BA5'],
-                }
-            ]
-            }
-            var donutOptions     = {
-            maintainAspectRatio : false,
-            responsive : true,
-            }
-
-            var donutChart = new Chart(donutChartCanvasPedidos, {
-            type: 'doughnut',
-            data: donutDatapedidos,
-            options: donutOptions      
-            });
-    });    
+    
     </script>
-    --}}
 @stop

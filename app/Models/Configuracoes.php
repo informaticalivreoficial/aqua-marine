@@ -80,8 +80,8 @@ class Configuracoes extends Model
         if(empty($this->metaimg) || !Storage::disk()->exists($this->metaimg)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        //return Storage::url(Cropper::thumb($this->metaimg, env('METAIMG_WIDTH'), env('METAIMG_HEIGHT')));
-        return Storage::url($this->metaimg);
+        return Storage::url(Cropper::thumb($this->metaimg, env('METAIMG_WIDTH'), env('METAIMG_HEIGHT')));
+        //return Storage::url($this->metaimg);
     }
     
     public function getlogomarca()
@@ -90,8 +90,8 @@ class Configuracoes extends Model
         if(empty($this->logomarca) || !Storage::disk()->exists($this->logomarca)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        //return Storage::url(Cropper::thumb($this->logomarca, env('LOGOMARCA_WIDTH'), env('LOGOMARCA_HEIGHT')));
-        return Storage::url($this->logomarca);
+        return Storage::url(Cropper::thumb($this->logomarca, env('LOGOMARCA_WIDTH'), env('LOGOMARCA_HEIGHT')));
+        //return Storage::url($this->logomarca);
     }
     
     public function getlogoadmin()
@@ -100,8 +100,8 @@ class Configuracoes extends Model
         if(empty($this->logomarca_admin) || !Storage::disk()->exists($this->logomarca_admin)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        //return Storage::url(Cropper::thumb($this->logomarca_admin, env('LOGOMARCA_GERENCIADOR_WIDTH'), env('LOGOMARCA_GERENCIADOR_HEIGHT')));
-        return Storage::url($this->logomarca_admin);
+        return Storage::url(Cropper::thumb($this->logomarca_admin, env('LOGOMARCA_GERENCIADOR_WIDTH'), env('LOGOMARCA_GERENCIADOR_HEIGHT')));
+        //return Storage::url($this->logomarca_admin);
     }
     
     public function getfaveicon()
@@ -110,8 +110,8 @@ class Configuracoes extends Model
         if(empty($this->favicon) || !Storage::disk()->exists($this->favicon)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        //return Storage::url(Cropper::thumb($this->favicon, env('FAVEICON_WIDTH'), env('FAVEICON_HEIGHT')));
-        return Storage::url($this->favicon);
+        return Storage::url(Cropper::thumb($this->favicon, env('FAVEICON_WIDTH'), env('FAVEICON_HEIGHT')));
+        //return Storage::url($this->favicon);
     }
     
     public function getmarcadagua()
@@ -120,8 +120,8 @@ class Configuracoes extends Model
         if(empty($this->marcadagua) || !Storage::disk()->exists($this->marcadagua)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        //return Storage::url(Cropper::thumb($this->marcadagua, env('MARCADAGUA_WIDTH'), env('MARCADAGUA_HEIGHT')));
-        return Storage::url($this->marcadagua);
+        return Storage::url(Cropper::thumb($this->marcadagua, env('MARCADAGUA_WIDTH'), env('MARCADAGUA_HEIGHT')));
+        //return Storage::url($this->marcadagua);
     }
     
     public function gettopodosite()
@@ -130,8 +130,8 @@ class Configuracoes extends Model
         if(empty($this->imgheader) || !Storage::disk()->exists($this->imgheader)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        //return Storage::url(Cropper::thumb($this->imgheader, env('IMGHEADER_WIDTH'), env('IMGHEADER_HEIGHT')));
-        return Storage::url($this->imgheader);
+        return Storage::url(Cropper::thumb($this->imgheader, env('IMGHEADER_WIDTH'), env('IMGHEADER_HEIGHT')));
+        //return Storage::url($this->imgheader);
     }
     
     public function setCepAttribute($value)

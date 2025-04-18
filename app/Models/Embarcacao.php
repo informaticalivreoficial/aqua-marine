@@ -75,8 +75,8 @@ class Embarcacao extends Model
             return url(asset('backend/assets/images/image.jpg'));
         }
 
-        //return Storage::url(Cropper::thumb($cover['path'], 740, 648));
-        return Storage::url($cover['path']);
+        return Storage::url(Cropper::thumb($cover['path'], 740, 648));
+        //return Storage::url($cover['path']);
     }
 
     public function nocover()

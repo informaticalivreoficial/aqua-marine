@@ -52,15 +52,15 @@ class Slide extends Model
         if(empty($this->imagem) || !Storage::disk()->exists($this->imagem)) {
             return url(asset('backend/assets/images/image.jpg'));
         } 
-        //return Storage::url(Cropper::thumb($this->imagem, 1200, 420));
-        return Storage::url($this->imagem);
+        return Storage::url(Cropper::thumb($this->imagem, 1200, 420));
+        //return Storage::url($this->imagem);
     }
 
     public function getUrlImagemAttribute()
     {
         if (!empty($this->imagem)) {
-            //return Storage::url(Cropper::thumb($this->imagem, 600, 210));
-            return Storage::url($this->imagem);
+            return Storage::url(Cropper::thumb($this->imagem, 600, 210));
+            //return Storage::url($this->imagem);
         }
         return '';
     }     
